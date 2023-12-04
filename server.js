@@ -111,7 +111,7 @@ app.post('/api/book', async (req, res) => {
             return res.json({ status: 'failed', idx: '10', error: 'Slots already booked' });
         }
     } catch (err) {
-        return res.json({ status: 'failed', idx: '10', error: 'Slots already booked' });
+        return res.json({ status: 'failed', idx: '10', error: 'Slot already booked' });
     }
 })
 
