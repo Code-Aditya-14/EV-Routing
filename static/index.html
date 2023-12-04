@@ -124,54 +124,38 @@
             document.getElementById("coords").value = "";
         }
         const apiKey = "b8d077af-f680-43f2-b80a-329bd6831d84";
-        var api_url=`https://api.openchargemap.io/v3/poi/?output=json&latitude=${lati}&longitude=${long}&distance=10&distanceunit=KM&CountryCode=IN&maxresults=100&key=${apiKey}`;
-        fetch(api_url)
-            .then(response => response.json())
-            .then(res => {
-                if(res.length > 0) {
-                    if (dest)
-                    {
-                        mymap.removeLayer(dest);
-                        mymap.removeControl(rout);
-                    }
-
-                    // rout = L.Routing.control({
-                    //     waypoints: [
-                    //         L.latLng(lati, long),
-                    //         L.latLng(res[35].AddressInfo.Latitude, res[35].AddressInfo.Longitude)
-                    //     ]
-                    // }).addTo(mymap);
-                    for(var i=0; i<res.length; i++) {
-                        L.marker([res[i].AddressInfo.Latitude, res[i].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                    }
+        var api_url=`https://api.openchargemap.io/v3/poi/?output=json&distance=10&distanceunit=KM&CountryCode=IN&maxresults=100&key=${apiKey}`;
+        async function getInfo() {
+            const resp = await fetch(api_url);
+            const obj = await resp.json();
+            if(obj.length > 0) {
+                var mn=1000000000;
+                var idx=0;
+                let v = [36, 0, 35, 25, 32, 42, 60, 12, 14, 10]; 
+                if (dest)
+                {
+                    mymap.removeLayer(dest);
+                    mymap.removeControl(rout);
                 }
-                else {
-                    console.log('failed')
-                }
-                
-            });
-            const openRouteServiceApiKey = "5b3ce3597851110001cf6248e4691fe883834ea88263486e70d3c838";
-
-// const startCoordinates = {
-//   lat: 57.74,
-//   lng: 11.94
-// };
-
-// const endCoordinates = {
-//   lat: 51.50,
-//   lng: -0.12
-// };
-
-// const route = await openrouteservice.route({
-//   coordinates: [startCoordinates, endCoordinates],
-//   profile: "driving",
-//   apiKey: openRouteServiceApiKey
-// });
-
-// const distance = route.routes[0].distance;
-// console.log(distance)
-
-
+                rout = L.Routing.control({
+                        waypoints: [
+                            L.latLng(lati, long),
+                            L.latLng(obj[v[0]].AddressInfo.Latitude, obj[v[0]].AddressInfo.Longitude)
+                        ]
+                }).addTo(mymap);
+                dest = L.marker([obj[v[0]].AddressInfo.Latitude, obj[v[0]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest1 = L.marker([obj[v[1]].AddressInfo.Latitude, obj[v[1]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest2 = L.marker([obj[v[2]].AddressInfo.Latitude, obj[v[2]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest3 = L.marker([obj[v[3]].AddressInfo.Latitude, obj[v[3]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest4 = L.marker([obj[v[4]].AddressInfo.Latitude, obj[v[4]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest5 = L.marker([obj[v[5]].AddressInfo.Latitude, obj[v[5]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest6 = L.marker([obj[v[6]].AddressInfo.Latitude, obj[v[6]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest7 = L.marker([obj[v[7]].AddressInfo.Latitude, obj[v[7]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest8 = L.marker([obj[v[8]].AddressInfo.Latitude, obj[v[8]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                let dest9 = L.marker([obj[v[9]].AddressInfo.Latitude, obj[v[9]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+            }
+        }
+        getInfo();
     </script>
   </body>
 </html>

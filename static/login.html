@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h3>Login</h3>
+    <form id="login">
+        <input type="username" id="username-login" placeholder="username"/>
+        <p class="msg" id="1"></p>
+        <input type="password" id="password" placeholder="Password"/>
+        <p class="msg" id="2"></p>
+        <button type="submit" id="submit">login</button>
+    </form>
+
+</body>
+<script>
+    const form=document.getElementById('login');
+    form.addEventListener('submit', login);
+    async function login(event)
+    {
+        event.preventDefault();
+        const username=document.getElementById('username-login').value;
+        const password=document.getElementById('password').value;
+        const result=await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username, 
+                password
+            })
+        }).then((res)=>res.json());
+        if (result.status === 'ok') {
+            // everythign went fine
+            console.log('Got the token: ', result.data)                    
+            localStorage.setItem('token', result.data)
+            localStorage.setItem('ID', result.ID)
+            document.getElementById('1').innerHTML = "";
+            window.location='/details'
+        } else if(result.idx) {
+            document.getElementById('username-login').innerHTML = "";
+            document.getElementById('password').innerHTML = "";
+            document.getElementById(result.idx).innerHTML = result.error;
+        } else {
+            document.getElementById('username-login').value = "";
+            document.getElementById('password').value = "";
+            alert(result.error);
+        }
+    }
+</script>
+</html>

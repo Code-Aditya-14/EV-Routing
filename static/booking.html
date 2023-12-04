@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+</head>
+<body>
+    <div class="login-header">
+        <h3>BOOKING</h3>
+    </div>
+    <form id="booking-form">
+        <input type="text" name="" id="Name" required/>
+        <input type="text" name="" id="Phone" required/>
+        <input type="email" name="" id="Email" required/>
+        <select name="" id="EV-Stations">
+            <option value="">Select</option>
+        </select>
+        <input type="datetime-local" name="" id="timing">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<script>
+    async function getInfo() {
+        const apiKey = "b8d077af-f680-43f2-b80a-329bd6831d84";
+        var api_url=`https://api.openchargemap.io/v3/poi/?output=json&distance=10&distanceunit=KM&CountryCode=IN&maxresults=100&key=${apiKey}`;
+        const resp = await fetch(api_url);
+        const obj = await resp.json();
+        if(obj.length > 0) {
+            const sel = document.getElementById('EV-Stations');
+            for(var i=0; i<obj.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = obj[i].ID;
+                opt.innerHTML = `${obj[i].AddressInfo.Title}, ${obj[i].AddressInfo.Town}`;
+                sel.appendChild(opt); 
+            }
+        }
+    }
+    getInfo();
+    
+    // Post req for booking form
+    const form = document.getElementById('booking-form');
+    form.addEventListener('submit', submitHandler);
+
+    async function submitHandler(event) {
+        event.preventDefault();
+        const name=document.getElementById('Name').value;
+        const phone=document.getElementById('Phone').value;
+        const email=document.getElementById('Email').value;
+        const evstation=document.getElementById('EV-Stations').value;
+        const timing=document.getElementById('timing').value;
+        const result=await fetch('/api/book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify ({
+                name,
+                phone,
+                email,
+                evstation,
+                timing
+            })
+        }).then((res)=>res.json());
+        if(result.status==='ok')
+        {
+            alert('');
+            window.location = '/';
+        }
+    }
+    
+</script>
+</html>
