@@ -76,42 +76,47 @@ app.post('/api/book', async (req, res) => {
 		return res.json({ status: 'failed', idx: '3', error: 'Future time should selected' });
 	}
 
-    
-    var cnt=0;
-    for(var i=0; i<(user.Timing).length; i++)
-    {
-        const timedif = Math.abs(user.Timing[i]-timing);
-        console.log(timedif);
-        if(timedif<1000*60*60){
-            cnt++;
-        }
-    }
-    console.log(cnt, user.NoOfPoints)
-    if(cnt >= user.NoOfPoints)
-    {
-        return res.json({ status: 'failed', idx: '10', error: 'Slots already booked.' });
-    }
-    else 
-    {
-        const result=await Stations.updateOne(
-            {
-                ID: evstation
-            }, 
-            {
-                $push: {
-                    consumerN: name,
-                    consumerPh: phone,
-                    consumerE: email,
-                    Timing: timing
-                }
-            }
-        );
-        console.log(result)
-        if(result.acknowledged === true)
+    try {
+        var cnt=0;
+        console.log(cnt)
+        console.log(user.Timing)
+        for(var i=0; i<(user.Timing).length; i++)
         {
-            return res.json({ status : 'ok' })
+            const timedif = Math.abs(user.Timing[i]-timing);
+            console.log(timedif);
+            if(timedif<1000*60*60){
+                cnt++;
+            }
         }
-        return res.json({ status: 'failed', idx: '10', error: 'Slots already booked' });
+        console.log(cnt, user.NoOfPoints)
+        if(cnt >= user.NoOfPoints)
+        {
+            return res.json({ status: 'failed', idx: '10', error: 'Slots already booked.' });
+        }
+        else 
+        {
+            const result=await Stations.updateOne(
+                {
+                    ID: evstation
+                }, 
+                {
+                    $push: {
+                        consumerN: name,
+                        consumerPh: phone,
+                        consumerE: email,
+                        Timing: timing
+                    }
+                }
+            );
+            console.log(result)
+            if(result.acknowledged === true)
+            {
+                return res.json({ status : 'ok' })
+            }
+            return res.json({ status: 'failed', idx: '10', error: 'Slots already booked' });
+        }
+    } catch (err) {
+        return res.json({ status: 'failed', idx: '10', error: err });
     }
 })
 
