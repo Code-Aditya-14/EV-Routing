@@ -8,6 +8,40 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
     <style>
+        body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        }
+
+        header {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+
+        .buttons-container {
+        display: flex;
+        }
+
+        .header-button {
+        margin-left: 10px;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none; /* Remove default button underline */
+        display: inline-block;
+        }
+
+        .header-button:hover {
+        background-color: #0056b3;
+        }
+
         #mapid { 
             height: 100%;
             margin: 10px;
@@ -22,6 +56,12 @@
     </style>
   </head>
   <body>
+    <header>
+        <div class="buttons-container">
+            <a href="/login" class="header-button">Login</a>
+            <a href="/booking" class="header-button">Book Slot</a>
+        </div>
+    </header>
     <!-- <input type="text" name="coords" id="coords" placeholder="Enter the coordinates of the location">
     <button onclick="Search()">Search</button> -->
     <div id="mapid"></div>
