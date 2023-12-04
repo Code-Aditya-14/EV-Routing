@@ -135,8 +135,12 @@
         }).then((res)=>res.json());
         if(result.status==='ok')
         {
-            alert('');
+            alert('Charging slot booked successfully.');
             window.location = '/';
+        }
+        else
+        {
+            alert('An error occured')
         }
     }
     
