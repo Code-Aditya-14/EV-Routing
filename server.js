@@ -87,7 +87,7 @@ app.post('/api/book', async (req, res) => {
         }
         if(cnt >= user.NoOfPoints)
         {
-            return res.json({ status: 'failed', idx: '10', error: 'Slots already booked' });
+            return res.json({ status: 'failed', idx: '10', error: 'Slots already booked.' });
         }
         else 
         {
