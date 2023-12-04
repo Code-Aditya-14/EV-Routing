@@ -67,6 +67,7 @@ app.post('/api/book', async (req, res) => {
     if (!user) {
         return res.json({ status: 'error', idx: '1', error: 'Please Select an EV-Station' })
     }
+    console.log(user)
 
     const date1 = new Date(timing);
 	const date2 = new Date();
@@ -85,6 +86,7 @@ app.post('/api/book', async (req, res) => {
                 cnt++;
             }
         }
+        console.log(cnt, user.NoOfPoints)
         if(cnt >= user.NoOfPoints)
         {
             return res.json({ status: 'failed', idx: '10', error: 'Slots already booked.' });
@@ -104,6 +106,7 @@ app.post('/api/book', async (req, res) => {
                     }
                 }
             );
+            console.log(result)
             if(result.acknowledged === true)
             {
                 return res.json({ status : 'ok' })
