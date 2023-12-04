@@ -62,8 +62,8 @@ app.post('/api/login', async (req, res) => {
 })
 
 app.post('/api/book', async (req, res) => {
-	const { name, phone, email, evstations, timing } = req.body
-    const user = await Stations.findOne({ ID: evstations }).lean()
+	const { name, phone, email, evstation, timing } = req.body
+    const user = await Stations.findOne({ ID: evstation }).lean()
     if (!user) {
         return res.json({ status: 'error', idx: '1', error: 'Please Select an EV-Station' })
     }
