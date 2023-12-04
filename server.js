@@ -41,7 +41,7 @@ app.post('/api/login', async (req, res) => {
         return res.json({ status: 'error', idx: '1', error: 'Invalid username/password' })
     }
 
-    if (await bcrypt.compare(password, user.password)) {
+    if (password == user.password) {
     // the username, password combination is successful
     
         const token = jwt.sign(
@@ -63,7 +63,7 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/book', async (req, res) => {
 	const { name, phone, email, evstations, timing } = req.body
-    const user = await Stations.findOne({ evstations }).lean()
+    const user = await Stations.findOne({ ID: evstations }).lean()
     if (!user) {
         return res.json({ status: 'error', idx: '1', error: 'Please Select an EV-Station' })
     }
@@ -117,7 +117,12 @@ app.post('/api/book', async (req, res) => {
 
 app.post('/api/getDetails', async (req, res) => {
 	const { ID } = req.body
-    
+    try {
+        const user = await Stations.findOne({ ID }).lean()
+        return res.json({ status : 'ok', name: user.consumerN, phone: user.consumerPh, email: user.consumerE, timing: user.Timing })
+    } catch(err) {
+        return res.json({ status: 'failed', idx: '10', error: 'Invalid Charging station' });
+    }
 })
 
 var port=process.env.PORT || 3000

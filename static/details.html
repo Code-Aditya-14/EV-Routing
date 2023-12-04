@@ -5,10 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
 </head>
-<body>
-    <h3>Booking Details</h3>
-    <div id="details">
+<style>
+    body {
+      background-image: url('bg-img.jpg'); /* Replace 'path_to_your_image.jpg' with your image file path */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif; /* Change font family if needed */
+      color: white; /* Change text color if needed */
+      flex-direction: column;
+    }
 
+    #details {
+      text-align: left;
+      background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h3 {
+      text-align: center;
+      margin-top: 0; /* Remove default margin */
+    }
+
+    /* Add styles for the content within #details if needed */
+  </style>
+<body>
+    <h1>Booking Details</h1>
+    <div id="details">
+       
     </div>
 </body>
 <script>
@@ -23,7 +52,35 @@
                 ID
             })
         }).then((res)=>res.json());
-        
+        if(result.status==='ok')
+        {
+            if(result.name.length===0)
+            {
+                document.getElementById("details").innerHTML = "No Booking Yet!"
+            }
+            else 
+            {
+                const div = document.createElement('div');
+                for(var i=0; i<result.name.length; i++)
+                {
+                    div.innerHTML += `
+                    Name: ${result.name[i]}
+                    <br>
+                    <br>
+                    Phone: ${result.phone[i]}
+                    <br>
+                    <br>
+                    Email: ${result.email[i]}
+                    <br>
+                    <br>
+                    Timing: ${result.timing[i]}
+                    <br>
+                    <br>
+                    <br>
+                    `
+                }
+            }
+        }
     }
     fetchInfo();
 </script>

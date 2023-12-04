@@ -22,8 +22,8 @@
     </style>
   </head>
   <body>
-    <input type="text" name="coords" id="coords" placeholder="Enter the coordinates of the location">
-    <button onclick="Search()">Search</button>
+    <!-- <input type="text" name="coords" id="coords" placeholder="Enter the coordinates of the location">
+    <button onclick="Search()">Search</button> -->
     <div id="mapid"></div>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
     <script>
@@ -75,6 +75,15 @@
         }
 
         var dest;
+        var dest1;
+        var dest2;
+        var dest3;
+        var dest4;
+        var dest5;
+        var dest6;
+        var dest7;
+        var dest8;
+        var dest9;
         var rout;
         var redIcon = new L.Icon({
             iconUrl: 'img/marker-icon-red.png',
@@ -88,6 +97,15 @@
             if (dest)
             {
                 mymap.removeLayer(dest);
+                mymap.removeLayer(dest1);
+                mymap.removeLayer(dest2);
+                mymap.removeLayer(dest3);
+                mymap.removeLayer(dest4);
+                mymap.removeLayer(dest5);
+                mymap.removeLayer(dest6);
+                mymap.removeLayer(dest7);
+                mymap.removeLayer(dest8);
+                mymap.removeLayer(dest9);
                 mymap.removeControl(rout);
             }
             
@@ -144,15 +162,15 @@
                         ]
                 }).addTo(mymap);
                 dest = L.marker([obj[v[0]].AddressInfo.Latitude, obj[v[0]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest1 = L.marker([obj[v[1]].AddressInfo.Latitude, obj[v[1]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest2 = L.marker([obj[v[2]].AddressInfo.Latitude, obj[v[2]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest3 = L.marker([obj[v[3]].AddressInfo.Latitude, obj[v[3]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest4 = L.marker([obj[v[4]].AddressInfo.Latitude, obj[v[4]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest5 = L.marker([obj[v[5]].AddressInfo.Latitude, obj[v[5]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest6 = L.marker([obj[v[6]].AddressInfo.Latitude, obj[v[6]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest7 = L.marker([obj[v[7]].AddressInfo.Latitude, obj[v[7]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest8 = L.marker([obj[v[8]].AddressInfo.Latitude, obj[v[8]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
-                let dest9 = L.marker([obj[v[9]].AddressInfo.Latitude, obj[v[9]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest1 = L.marker([obj[v[1]].AddressInfo.Latitude, obj[v[1]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest2 = L.marker([obj[v[2]].AddressInfo.Latitude, obj[v[2]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest3 = L.marker([obj[v[3]].AddressInfo.Latitude, obj[v[3]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest4 = L.marker([obj[v[4]].AddressInfo.Latitude, obj[v[4]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest5 = L.marker([obj[v[5]].AddressInfo.Latitude, obj[v[5]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest6 = L.marker([obj[v[6]].AddressInfo.Latitude, obj[v[6]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest7 = L.marker([obj[v[7]].AddressInfo.Latitude, obj[v[7]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest8 = L.marker([obj[v[8]].AddressInfo.Latitude, obj[v[8]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
+                dest9 = L.marker([obj[v[9]].AddressInfo.Latitude, obj[v[9]].AddressInfo.Longitude], {icon: redIcon}).addTo(mymap);
             }
         }
         getInfo();

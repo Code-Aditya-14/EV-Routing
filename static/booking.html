@@ -5,18 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking</title>
 </head>
+<style>
+    body {
+      background-image: url('bg-img.jpg'); /* Replace 'path_to_your_image.jpg' with your image file path */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif; /* Change font family if needed */
+      color: white; /* Change text color if needed */
+      flex-direction: column;
+    }
+
+    .login-header {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px; /* Add margin between header and form */
+    }
+
+    #booking-form {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      margin-top: 0; /* Remove default margin */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="datetime-local"] {
+      width: 200px; /* Adjust width as needed */
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+
+    button {
+      padding: 8px 20px;
+      background-color: #007bff; /* Change button color if needed */
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3; /* Change button color on hover if needed */
+    }
+    div {
+        text-align: left;
+    }
+  </style>
 <body>
     <div class="login-header">
-        <h3>BOOKING</h3>
+        <h1>BOOKING</h1>
     </div>
     <form id="booking-form">
-        <input type="text" name="" id="Name" required/>
-        <input type="text" name="" id="Phone" required/>
-        <input type="email" name="" id="Email" required/>
-        <select name="" id="EV-Stations">
+        <input type="text" name="" id="Name" placeholder="Name" required/>
+        <br>
+        <br>
+        <input type="text" name="" id="Phone" placeholder="Phone No." required/>
+        <br>
+        <br>
+        <input type="email" name="" id="Email" placeholder="Email ID" required/>
+        <br>
+        <br>
+        <div>Charging Station</div>
+        <br>
+        <select name="" id="EV-Stations" aria-placeholder="charging">
             <option value="">Select</option>
         </select>
+        <br>
+        <br>
         <input type="datetime-local" name="" id="timing">
+        <br>
+        <br>
+        <br>
         <button type="submit">Submit</button>
     </form>
 </body>
