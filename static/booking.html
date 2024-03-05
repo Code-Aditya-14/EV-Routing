@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,74 +8,86 @@
 </head>
 <style>
     body {
-      background-image: url('bg-img.jpg'); /* Replace 'path_to_your_image.jpg' with your image file path */
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif; /* Change font family if needed */
-      color: white; /* Change text color if needed */
-      flex-direction: column;
+        background-image: url('bg-img.jpg');
+        /* Replace 'path_to_your_image.jpg' with your image file path */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        /* Change font family if needed */
+        color: white;
+        /* Change text color if needed */
+        flex-direction: column;
     }
 
     .login-header {
-      text-align: center;
-      background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px; /* Add margin between header and form */
+        text-align: center;
+        background: rgba(0, 0, 0, 0.5);
+        /* Add a semi-transparent background */
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        /* Add margin between header and form */
     }
 
     #booking-form {
-      text-align: center;
-      background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
-      padding: 20px;
-      border-radius: 8px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.5);
+        /* Add a semi-transparent background */
+        padding: 20px;
+        border-radius: 8px;
     }
 
     h1 {
-      margin-top: 0; /* Remove default margin */
+        margin-top: 0;
+        /* Remove default margin */
     }
 
     input[type="text"],
     input[type="email"],
     select,
     input[type="datetime-local"] {
-      width: 200px; /* Adjust width as needed */
-      margin-bottom: 10px;
-      padding: 5px;
+        width: 200px;
+        /* Adjust width as needed */
+        margin-bottom: 10px;
+        padding: 5px;
     }
 
     button {
-      padding: 8px 20px;
-      background-color: #007bff; /* Change button color if needed */
-      color: white;
-      border: none;
-      cursor: pointer;
+        padding: 8px 20px;
+        background-color: #007bff;
+        /* Change button color if needed */
+        color: white;
+        border: none;
+        cursor: pointer;
     }
 
     button:hover {
-      background-color: #0056b3; /* Change button color on hover if needed */
+        background-color: #0056b3;
+        /* Change button color on hover if needed */
     }
+
     div {
         text-align: left;
     }
-  </style>
+</style>
+
 <body>
     <div class="login-header">
         <h1>BOOKING</h1>
     </div>
     <form id="booking-form">
-        <input type="text" name="" id="Name" placeholder="Name" required/>
+        <input type="text" name="" id="Name" placeholder="Name" required />
         <br>
         <br>
-        <input type="text" name="" id="Phone" placeholder="Phone No." required/>
+        <input type="text" name="" id="Phone" placeholder="Phone No." required />
         <br>
         <br>
-        <input type="email" name="" id="Email" placeholder="Email ID" required/>
+        <input type="email" name="" id="Email" placeholder="Email ID" required />
         <br>
         <br>
         <div>Charging Station</div>
@@ -92,57 +105,65 @@
     </form>
 </body>
 <script>
+    const apiKey = "b8d077af-f680-43f2-b80a-329bd6831d84";
     async function getInfo() {
-        const apiKey = "b8d077af-f680-43f2-b80a-329bd6831d84";
-        var api_url=`https://api.openchargemap.io/v3/poi/?output=json&distance=10&distanceunit=KM&CountryCode=IN&maxresults=100&key=${apiKey}`;
+        var api_url = `https://api.openchargemap.io/v3/poi/?output=json&distance=10&distanceunit=KM&CountryCode=IN&maxresults=100&key=${apiKey}`;
         const resp = await fetch(api_url);
         const obj = await resp.json();
-        if(obj.length > 0) {
+        if (obj.length > 0) {
             const sel = document.getElementById('EV-Stations');
-            for(var i=0; i<obj.length; i++) {
+            for (var i = 0; i < obj.length; i++) {
                 var opt = document.createElement('option');
                 opt.value = obj[i].ID;
                 opt.innerHTML = `${obj[i].AddressInfo.Title}, ${obj[i].AddressInfo.Town}`;
-                sel.appendChild(opt); 
+                sel.appendChild(opt);
             }
         }
     }
     getInfo();
-    
     // Post req for booking form
     const form = document.getElementById('booking-form');
     form.addEventListener('submit', submitHandler);
 
     async function submitHandler(event) {
         event.preventDefault();
-        const name=document.getElementById('Name').value;
-        const phone=document.getElementById('Phone').value;
-        const email=document.getElementById('Email').value;
-        const evstation=document.getElementById('EV-Stations').value;
-        const timing=document.getElementById('timing').value;
-        const result=await fetch('/api/book', {
+        const name = document.getElementById('Name').value;
+        const phone = document.getElementById('Phone').value;
+        const email = document.getElementById('Email').value;
+        const evstation = document.getElementById('EV-Stations').value;
+        const timing = document.getElementById('timing').value;
+        const result = await fetch('/api/book', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify ({
+            body: JSON.stringify({
                 name,
                 phone,
                 email,
                 evstation,
                 timing
             })
-        }).then((res)=>res.json());
-        if(result.status==='ok')
-        {
+        }).then((res) => res.json());
+        if (result.status === 'ok') {
             alert('Charging slot booked successfully.');
+            async function getCoords() {
+                var api_url = `https://api.openchargemap.io/v3/poi/?output=json&distance=10&distanceunit=KM&CountryCode=IN&maxresults=100&key=${apiKey}`;
+                const resp = await fetch(api_url);
+                const obj = await resp.json();
+                const curr_ev = obj.find(item => item.ID == evstation)
+                console.log(curr_ev.AddressInfo.Latitude)
+                localStorage.setItem('booked_lat', curr_ev.AddressInfo.Latitude);
+                localStorage.setItem('booked_long', curr_ev.AddressInfo.Longitude)
+            }
+            getCoords();
             window.location = '/';
         }
-        else
-        {
+        else {
             alert(result.error)
         }
     }
-    
+
 </script>
+
 </html>

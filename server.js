@@ -5,8 +5,9 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt=require('jsonwebtoken')
 const Stations = require('./models/stations')
+require('dotenv').config()
 
-const DB = "mongodb+srv://Aditya_14:AdityaCan@login-sys.u0cbq.mongodb.net/ev-stations?retryWrites=true&w=majority";
+const DB = process.env.DB;
 mongoose.connect(DB, {
 	useNewUrlParser: true, 
 	useUnifiedTopology: true
@@ -23,6 +24,7 @@ app.use('/', express.static(path.join(__dirname, 'static')))
 app.use('/login', express.static(path.join(__dirname, 'static/login.html')))
 app.use('/booking', express.static(path.join(__dirname, 'static/booking.html')))
 app.use('/details', express.static(path.join(__dirname, 'static/details.html')))
+app.use('/enquiry', express.static(path.join(__dirname, 'static/enquiry.html')))
 
 // apis
 app.post('/api/login', async (req, res) => {
